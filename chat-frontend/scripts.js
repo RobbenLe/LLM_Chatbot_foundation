@@ -4,11 +4,13 @@ const responseBox = document.getElementById("response"); // ID of response box f
 
 button.addEventListener("click", sendMessage); // Have to do something when button is clicked
 
-async function sendMessage() { // What happen after button is clicked
+async function sendMessage() {
+  // What happen after button is clicked
   const userText = input.value; //JS reads user input
   try {
-    const response = await fetch("http://localhost:8000/chat", { //JS sends HTTP request
-      method: "POST",                                  //Browser sends request to backend
+    const response = await fetch("http://localhost:8000/chat", {
+      //JS sends HTTP request
+      method: "POST", //Browser sends request to backend
       headers: {
         "Content-Type": "application/json",
       },
@@ -16,7 +18,7 @@ async function sendMessage() { // What happen after button is clicked
     });
 
     const data = await response.json(); //JS reads JSON
-    responseBox.innerText = data.answer;  //Frontend must match backend response schema exactly, JS updates UI
+    responseBox.innerText = data.answer; //Frontend must match backend response schema exactly, JS updates UI
   } catch (error) {
     responseBox.innerText = "Error: " + error.message;
   }
