@@ -1,0 +1,77 @@
+How backend + frontend work together (full flow)
+A) Frontend side (browser)
+
+You open:
+
+http://127.0.0.1:5500/chat-frontend/index.html
+
+That page loads your scripts.js.
+
+When you click Send:
+
+JS reads user input: input.value
+
+JS sends HTTP request:
+
+fetch("http://127.0.0.1:8000/chat", { method:"POST", ... })
+
+
+Browser sends request to backend
+
+Backend responds with JSON
+
+JS reads JSON: await res.json()
+
+JS updates UI: responseBox.innerText = data.answer
+
+
+
+
+
+B) Backend side (FastAPI server)
+
+You run:
+
+cd backend
+uvicorn main:app --reload
+
+
+FastAPI listens on:
+
+http://127.0.0.1:8000
+
+When it receives POST /chat:
+
+It parses JSON body into ChatRequest
+
+Your function runs:
+
+if mock: return mock JSON
+
+else: call OpenAI, parse output JSON
+
+It returns JSON to browser
+
+
+
+
+3) How the two connect (the full chain)
+
+You open frontend page at:
+http://127.0.0.1:5500/chat-frontend/index.html
+
+Browser loads scripts.js (setup runs)
+
+Click Send → sendMessage() runs
+
+Browser sends POST request to:
+http://localhost:8000/chat
+
+Uvicorn receives request → FastAPI routes to chat()
+
+chat() returns JSON → Uvicorn sends response to browser
+
+Browser continues after await → data = await response.json()
+
+UI updates: responseBox.innerText = data.answer
+

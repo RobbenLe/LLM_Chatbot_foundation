@@ -1,0 +1,27 @@
+How to run backend + frontend together (final checklist)
+  Terminal 1 (backend)
+    cd LLM_Chatbot_foundation
+    venv\Scripts\activate
+    cd backend
+    uvicorn main:app --reload
+
+
+Check:
+
+   http://127.0.0.1:8000/docs opens
+
+  Frontend (Live Server)
+
+     Right click chat-frontend/index.html
+
+     Open with Live Server
+
+Check:
+
+URL looks like http://127.0.0.1:5500/chat-frontend/index.html
+
+Now click Send:
+
+     Network shows POST /chat with status 200
+
+     Page shows data.answer
